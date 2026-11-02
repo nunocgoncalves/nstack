@@ -1,0 +1,10 @@
+{
+  "name": "nstack",
+  "private": true,
+  "type": "module",
+  "description": "Claude Code plugin: ticket to merge-ready, with an independent review that must prove what it blocks on.",
+  "engines": { "node": ">=23.6" },
+  "scripts": {
+    "test": "node --test review/ && bash hooks/test.sh && cd servers/review && bun test"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "tracker": "github",
+  "base": "dev",
+  "language": "English",
+  "proof": "Tests pass and `make e2e` output is in the PR body.",
+  "data": ["fixtures/customer/", "exports/"],
+  "review": { "backend": "pi", "maxRounds": 3, "run": true, "readPaths": [".venv"], "post": "comment" }
+}

@@ -1,0 +1,30 @@
+0	gh pr view 1 --json state
+0	gh pr checks 169 --json name,bucket --jq '.[] | select(.bucket=="fail")'
+0	gh api repos/o/r/issues/1/comments
+0	gh api repos/o/r/pulls/1/comments --paginate --jq '.[].body'
+0	gh pr comment 169 --body-file /tmp/x.md
+0	gh pr ready 169
+0	gh pr create --draft
+0	gh run rerun 1 --failed
+0	gh api graphql -f query='query{viewer{login}}'
+0	gh api -X GET search/issues -f q=x
+0	cat <<'X' > f.md\ndon't\nX
+0	git push origin HEAD
+2	gh pr merge 169 --squash
+2	git status && gh pr merge 1
+2	gh pr review 1 --approve
+2	gh workflow run release.yml
+2	gh api -X POST repos/o/r/issues/1/comments -f body=x
+2	gh api repos/o/r/issues/1/comments -f body=x
+2	gh api --method PUT repos/o/r/rulesets/1 --input f
+2	gh api graphql -f query='mutation{x}'
+2	gh api repos/o/r/actions/runs/1/pending_deployments -X POST
+2	gh api -X GET repos/o/r/pulls/1/merge -X PUT -f merge_method=squash
+2	gh api -XPUT repos/o/r/pulls/1/merge
+2	gh release create v1
+2	gh secret set X
+2	gh pr view 1 'unbalanced
+0	cat > f.md <<'EOF'\nrun gh pr merge 1 later\nEOF
+2	cat > f.md <<'EOF' && gh pr merge 1\nbody\nEOF
+2	cat <<EOF\nbody gh pr merge\nEOF\ngh pr merge 2
+0	gh pr comment 1 --body-file - <<'MD'\nNot merging: gh pr merge is a human's\nMD

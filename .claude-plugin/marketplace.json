@@ -1,0 +1,11 @@
+{
+  "name": "nstack",
+  "owner": { "name": "Nuno Gonçalves", "url": "https://github.com/nunocgoncalves" },
+  "plugins": [
+    {
+      "name": "nstack",
+      "source": "./",
+      "description": "Ticket to merge-ready in one session, with an independent review that must prove what it blocks on."
+    }
+  ]
+}

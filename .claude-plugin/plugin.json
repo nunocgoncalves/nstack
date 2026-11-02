@@ -1,0 +1,10 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "nstack",
+  "version": "0.1.0",
+  "description": "Ticket to merge-ready in one session: worktrees, background CI, and an independent review by a second model that must prove what it blocks on. Configured per repository.",
+  "author": { "name": "Nuno Gonçalves", "url": "https://github.com/nunocgoncalves" },
+  "homepage": "https://github.com/nunocgoncalves/nstack",
+  "repository": "https://github.com/nunocgoncalves/nstack",
+  "license": "MIT"
+}

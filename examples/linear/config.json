@@ -1,0 +1,6 @@
+{
+  "tracker": "linear",
+  "ticketPrefix": "ABC",
+  "language": "English",
+  "review": { "backend": "claude", "model": "claude-opus-5-5", "post": "none" }
+}
