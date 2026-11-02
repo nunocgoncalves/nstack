@@ -193,7 +193,8 @@ function sbpl(path: string): string {
 
 /**
  * macOS sandbox profile for the reviewer. Reads under the home folder, the temp folders and
- * external volumes are denied except `read` (and `write`, which is also readable); writes are
+ * external volumes are denied except `read` (and `write`, which is also readable), apart from
+ * file metadata (stat), which interpreters need to resolve their own paths; writes are
  * allowed only in `write`. Everything else (system tools, the network for the model) stays open.
  * Paths must be real paths: the sandbox matches on them, not on symlinks.
  */
@@ -204,6 +205,9 @@ export function sandboxProfile(home: string, read: string[], write: string[]): s
     "(version 1)",
     "(allow default)",
     `(deny file-read* ${closed})`,
+    // stat() anywhere: interpreters resolve their own paths (a virtualenv's parent folder).
+    // It reveals that a path exists and its size, never its content or a folder's listing.
+    "(allow file-read-metadata)",
     `(allow file-read* (literal ${sbpl(home)}) ${sub([...read, ...write])})`,
     `(deny file-write* ${closed})`,
     write.length ? `(allow file-write* ${sub(write)})` : "",

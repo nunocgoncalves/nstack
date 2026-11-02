@@ -96,7 +96,8 @@ gets it.
 The PR head exported with `git archive` (nothing gitignored, no `.git`), minus `data` paths,
 binaries and files over 300 KB. They are named to it, never sent. Inside the sandbox it can read
 that copy, its own installation and `readPaths`; nothing else under your home folder, the temp
-folders or external volumes. It writes only in its copy. The network stays open, since the model is
+folders or external volumes, beyond file metadata (that a path exists, its size), which interpreters
+need to resolve their own paths. It writes only in its copy. The network stays open, since the model is
 remote. A reply containing the backend's credentials is never saved or posted.
 
 ## Tests

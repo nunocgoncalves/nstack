@@ -152,7 +152,7 @@ function main(scratch: string): void {
   const parts = [
     `Review pull request #${pr} of ${slug}, round ${round}. Your working directory is your copy of the repository at the PR head; read it freely for context.`,
     cfg.review.run
-      ? "You may run commands and write files in your copy to prove findings. Use TMPDIR for anything temporary."
+      ? "You may run commands and write files in your copy to prove findings. Use TMPDIR for anything temporary; your home folder is not writable, so prefix commands that write caches with HOME=\"$TMPDIR\" (proof commands are re-run that way)."
       : "Do not run commands or write files: this repository's review is read-only, so blocking findings can only be quote-proved.",
     readPaths.length ? `Also readable for running code (toolchains, environments): ${readPaths.join(", ")}` : "",
     `Write titles, details and suggestions in ${cfg.language}.`,
@@ -193,7 +193,7 @@ function main(scratch: string): void {
   for (const f of review.findings) {
     if (f.severity !== "blocking" || f.proof?.kind !== "run") continue;
     const [c, a] = sandboxed ? [SANDBOX, ["-p", rerunProfile, "sh", "-c", f.proof.command]] : ["sh", ["-c", f.proof.command]];
-    const rr = spawnSync(c, a, { cwd: tree, env: { ...process.env, TMPDIR: join(realScratch, "tmp") }, encoding: "utf8", timeout: 5 * 60_000, maxBuffer: 64 * 1024 * 1024 });
+    const rr = spawnSync(c, a, { cwd: tree, env: { ...process.env, TMPDIR: join(realScratch, "tmp"), HOME: join(realScratch, "tmp") }, encoding: "utf8", timeout: 5 * 60_000, maxBuffer: 64 * 1024 * 1024 });
     const output = `${rr.stdout ?? ""}${rr.stderr ?? ""}`.slice(-4000);
     assertNoSecrets(output, secrets);
     reruns[f.id] = { code: rr.status, output };

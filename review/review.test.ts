@@ -150,6 +150,8 @@ describe("sandbox", { skip: !existsSync("/usr/bin/sandbox-exec") && "macOS only"
     assert.equal(sb("/bin/cat", join(ok, "ok.txt")).stdout, "yes\n");
     assert.notEqual(sb("/bin/cat", join(no, "secret.txt")).status, 0);
     assert.notEqual(sb("/bin/ls", homedir()).stdout.includes(".ssh"), true);
+    assert.equal(sb("/usr/bin/stat", "-f", "%z", join(no, "secret.txt")).status, 0); // metadata only
+    assert.equal(sb("/bin/ls", no).stdout.includes("secret.txt"), false);
     assert.equal(sb("/usr/bin/touch", join(ok, "new")).status, 0);
     assert.notEqual(sb("/usr/bin/touch", join(no, "x")).status, 0);
   });
